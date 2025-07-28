@@ -6,4 +6,6 @@ export interface GameFilterContextType {
   selectedCategory: GameCategory | null;
   setSelectedCategory: (value: GameCategory | null) => void;
   clearFilters: () => void;
+  showFavoritesOnly: boolean;
+  toggleShowFavorites: () => void;
 }

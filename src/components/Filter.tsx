@@ -1,6 +1,5 @@
-'use client';
-
 import { useGameFilter } from "@/context/FilterContext";
+import { useGameActions } from "@/context/FavouritesContext"; 
 import { GameCategory } from "@/types/Game";
 
 const Filter = () => {
@@ -10,7 +9,11 @@ const Filter = () => {
     selectedCategory,
     setSelectedCategory,
     clearFilters,
+    showFavoritesOnly,
+    toggleShowFavorites,
   } = useGameFilter();
+
+  const { favorites } = useGameActions(); // ⬅️ Access favorites from context
 
   return (
     <div className="space-y-4 mb-6">
@@ -21,7 +24,7 @@ const Filter = () => {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         className="w-full max-w-lg px-4 py-2 rounded-md bg-zinc-800 text-white placeholder-zinc-400 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-        />
+      />
 
       {/* Category Buttons */}
       <div className="flex flex-wrap gap-2">
@@ -49,6 +52,20 @@ const Filter = () => {
             {cat.charAt(0).toUpperCase() + cat.slice(1)}
           </button>
         ))}
+
+        {/* Favorites Toggle Button (Only Show if We Have Any Favorites) */}
+        {favorites.length > 0 && (
+          <button
+            onClick={toggleShowFavorites}
+            className={`px-4 py-1 rounded-full border ${
+              showFavoritesOnly
+                ? "bg-pink-500 text-white"
+                : "bg-zinc-800 text-white border-zinc-600"
+            } hover:bg-pink-400 transition`}
+          >
+            {showFavoritesOnly ? "Showing Favorites" : "Show Favorites"}
+          </button>
+        )}
 
         <button
           onClick={clearFilters}

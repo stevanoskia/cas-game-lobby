@@ -4,6 +4,7 @@ import "./globals.css";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import { GameFilterProvider } from "@/context/FilterContext";
+import { GameActionsProvider } from "@/context/FavouritesContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +33,9 @@ export default function RootLayout({
       >
         <Navigation />
         <GameFilterProvider>
+        <GameActionsProvider> 
           {children}
+        </GameActionsProvider>
         </GameFilterProvider>
         <Footer />
       </body>
