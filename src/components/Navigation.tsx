@@ -1,37 +1,41 @@
-
-"use client"; // client component for useState
+"use client";
 
 import Link from "next/link";
 import { useState } from "react";
+import ThemeSwitch from "./ThemeSwitcher"; 
 
 export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const handleLinkClick = () => setMenuOpen(false);
+
   return (
-    <nav className="bg-zinc-900 text-white px-6 py-4 shadow-md">
+    <nav className="fixed w-full top-0 z-50 bg-zinc-800 text-white px-6 py-4 shadow-md">
       <div className="max-w-screen-xl mx-auto flex justify-between items-center">
         <Link
           href="/"
-          className="text-2xl font-bold hover:text-yellow-400 transition cursor-pointer"
-          onClick={() => setMenuOpen(false)}
+          className="text-2xl font-bold hover:text-yellow-400 transition cursor-pointer select-none"
+          onClick={handleLinkClick}
         >
           Casino Games
         </Link>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex space-x-6">
-          <Link href="/login" className="hover:text-yellow-400 transition cursor-pointer">
+        <div className="hidden md:flex space-x-6 items-center">
+          <Link href="/login" className="hover:text-yellow-400 transition">
             Login
           </Link>
-          <Link href="/about" className="hover:text-yellow-400 transition cursor-pointer">
+          <Link href="/about" className="hover:text-yellow-400 transition">
             About
           </Link>
-          <Link href="/contact" className="hover:text-yellow-400 transition cursor-pointer">
+          <Link href="/contact" className="hover:text-yellow-400 transition">
             Contact
           </Link>
+
+          <ThemeSwitch />
         </div>
 
-        {/* Mobile Hamburger Button */}
+        {/* Mobile Dropdown Toggle */}
         <button
           className="md:hidden flex items-center focus:outline-none"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -44,7 +48,6 @@ export default function Navigation() {
             stroke="currentColor"
             strokeWidth="2"
             viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
           >
             {menuOpen ? (
               <path
@@ -69,24 +72,29 @@ export default function Navigation() {
           <Link
             href="/login"
             className="block px-3 py-2 rounded-md hover:bg-yellow-400 hover:text-black transition"
-            onClick={() => setMenuOpen(false)}
+            onClick={handleLinkClick}
           >
             Login
           </Link>
           <Link
             href="/about"
             className="block px-3 py-2 rounded-md hover:bg-yellow-400 hover:text-black transition"
-            onClick={() => setMenuOpen(false)}
+            onClick={handleLinkClick}
           >
             About
           </Link>
           <Link
             href="/contact"
             className="block px-3 py-2 rounded-md hover:bg-yellow-400 hover:text-black transition"
-            onClick={() => setMenuOpen(false)}
+            onClick={handleLinkClick}
           >
             Contact
           </Link>
+
+          {/* ✅ Mobile Theme Switcher */}
+          <div className="px-3 py-2">
+            <ThemeSwitch />
+          </div>
         </div>
       )}
     </nav>

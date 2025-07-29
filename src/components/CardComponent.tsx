@@ -3,21 +3,29 @@
 import { Game } from "@/types/Game";
 import Button from "./Button";
 import { useGameActions } from "@/context/FavouritesContext";
+import Image from "next/image";
+import { useTheme } from "../hooks/useTheme";
 
 function CardComponent({ game }: { game: Game }) {
   const { favorites, toggleFavorite, addToHistory } = useGameActions();
   const isFavorited = favorites.includes(game.id);
 
+  const {isDark, theme} = useTheme();
+
   return (
-    <div className="bg-zinc-900 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-transform hover:-translate-y-2">
-      <img
+    <div className={`rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-transform hover:-translate-y-2 ${isDark ? "bg-zinc-800" : "bg-white"}`}>
+      <Image
         src={game.image}
         alt={game.name}
+        width={400}
+        height={200}
         className="w-full h-40 object-cover"
       />
       <div className="p-4 flex flex-col gap-2">
         <div className="flex justify-between items-center">
-          <h3 className="text-white text-lg font-semibold">{game.name}</h3>
+          <h3 className="text-black dark:text-white text-lg font-semibold">
+            {game.name}
+          </h3>
           <Button
             variant="icon"
             icon="heart"
@@ -25,7 +33,7 @@ function CardComponent({ game }: { game: Game }) {
             onClick={() => toggleFavorite(game.id)}
           />
         </div>
-        <p className="text-sm text-zinc-400">{game.provider}</p>
+        <p className="text-sm text-zinc-600">{game.provider}</p>
         <Button
           onClick={() => {
             addToHistory({ id: game.id, name: game.name });
@@ -37,5 +45,4 @@ function CardComponent({ game }: { game: Game }) {
     </div>
   );
 }
-
 export default CardComponent;

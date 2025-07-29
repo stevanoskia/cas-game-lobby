@@ -6,6 +6,8 @@ import Filter from "./Filter";
 import CardComponent from "./CardComponent";
 import { useGameFilter } from "@/context/FilterContext";
 import { useGameActions } from "@/context/FavouritesContext";
+import RecentlyPlayed from "./RecentlyPlayed";
+
 
 interface GameLobbyProps {
   games: Game[];
@@ -13,9 +15,9 @@ interface GameLobbyProps {
 
 const GameLobby: React.FC<GameLobbyProps> = ({ games }) => {
   const { search, selectedCategory, showFavoritesOnly } = useGameFilter();
-  const { favorites } = useGameActions();
+  const { favorites, recentGames } = useGameActions();
   const [debouncedSearch, setDebouncedSearch] = useState(search);
-  const isFirstRender = useRef(true);
+
 
   // Debounce input
   useEffect(() => {
@@ -47,14 +49,26 @@ const GameLobby: React.FC<GameLobbyProps> = ({ games }) => {
     <div className="space-y-6">
       <Filter />
 
+      {!showFavoritesOnly && (
+        <RecentlyPlayed
+          allGames={games}
+          recentlyPlayed={recentGames}
+          selectedCategory={selectedCategory}
+          search={debouncedSearch}
+        />
+      )}
+
+
       {filteredGames.length === 0 ? (
-        <p className="text-center text-zinc-400 mt-8">No games found.</p>
+        <p className="text-center light:text-zinc-600 dark:text-zinc-400 mt-8">No games found.</p>
+
       ) : (
         <>
           {/* ✅ Show only favorites if toggled */}
           {showFavoritesOnly ? (
             <div>
-              <h3 className="text-lg font-semibold text-white mb-2">Favorite Games</h3>
+              <h3 className="text-lg font-semibold text-black dark:text-white mb-2">Favorite Games</h3>
+
               {favoriteGames.length === 0 ? (
                 <p className="text-zinc-400">No favorites match the current filters.</p>
               ) : (

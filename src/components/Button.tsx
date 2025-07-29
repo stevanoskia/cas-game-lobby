@@ -3,7 +3,6 @@ import clsx from "clsx";
 import { Heart } from "lucide-react";
 import { ButtonProps } from "@/types/ButtonType";
 
-
 const Button: React.FC<ButtonProps> = ({
   children,
   className,
@@ -22,7 +21,7 @@ const Button: React.FC<ButtonProps> = ({
       <button
         className={clsx(
           "p-1 rounded-full transition hover:scale-110",
-          active ? "text-red-500" : "text-white",
+          active ? "text-red-500" : "text-black dark:text-white",
           className
         )}
         onClick={handleClick}
@@ -36,7 +35,9 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       className={clsx(
-        "relative overflow-hidden w-full py-2 text-sm sm:text-base rounded-lg bg-yellow-400 text-black font-bold hover:bg-yellow-300 transition cursor-pointer group",
+        "relative overflow-hidden w-full py-2 text-sm sm:text-base rounded-lg font-bold transition cursor-pointer group",
+        "bg-yellow-400 text-black hover:bg-yellow-300",
+        "dark:bg-yellow-300 dark:text-zinc-900 dark:hover:bg-yellow-200",
         className
       )}
       onClick={handleClick}
