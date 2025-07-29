@@ -10,7 +10,8 @@ function CardComponent({ game }: { game: Game }) {
   const { favorites, toggleFavorite, addToHistory } = useGameActions();
   const isFavorited = favorites.includes(game.id);
 
-  const {isDark, theme} = useTheme();
+  const {isDark, theme, setTheme, mounted} = useTheme();
+  if (!mounted) return null; // Prevent hydration mismatch
 
   return (
     <div className={`rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-transform hover:-translate-y-2 ${isDark ? "bg-zinc-800" : "bg-white"}`}>

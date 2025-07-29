@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
 
 export function useTheme() {
-  const [isDark, setIsDark] = useState(() =>
-    typeof window !== 'undefined'
-      ? document.documentElement.classList.contains('dark')
-      : false
-  );
+  const [isDark, setIsDark] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const html = document.documentElement;
 
-    const update = () => setIsDark(html.classList.contains('dark'));
+    const update = () => {
+      setIsDark(html.classList.contains('dark'));
+    };
 
     const observer = new MutationObserver(update);
 
@@ -19,7 +18,8 @@ export function useTheme() {
       attributeFilter: ['class'],
     });
 
-    update(); // Initial state sync
+    update();
+    setMounted(true);
 
     return () => observer.disconnect();
   }, []);
@@ -27,5 +27,10 @@ export function useTheme() {
   return {
     isDark,
     theme: isDark ? 'dark' : 'light',
+    setTheme: (theme: 'light' | 'dark') => {
+      document.documentElement.classList.remove(theme === 'dark' ? 'light' : 'dark');
+      document.documentElement.classList.add(theme);
+    },
+    mounted,
   };
 }
