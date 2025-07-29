@@ -18,7 +18,6 @@ const GameLobby: React.FC<GameLobbyProps> = ({ games }) => {
   const { favorites, recentGames } = useGameActions();
   const [debouncedSearch, setDebouncedSearch] = useState(search);
 
-
   // Debounce input
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedSearch(search), 300);

@@ -11,10 +11,10 @@ function CardComponent({ game }: { game: Game }) {
   const isFavorited = favorites.includes(game.id);
 
   const {isDark, theme, setTheme, mounted} = useTheme();
-  if (!mounted) return null; // Prevent hydration mismatch
+  if (!mounted) return null; 
 
   return (
-    <div className={`rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-transform hover:-translate-y-2 ${isDark ? "bg-zinc-800" : "bg-white"}`}>
+    <div className={`rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-transform hover:-translate-y-2 ${isDark ? "bg-zinc-500" : "bg-white"}`}>
       <Image
         src={game.image}
         alt={game.name}

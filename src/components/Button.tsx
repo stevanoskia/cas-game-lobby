@@ -21,7 +21,7 @@ const Button: React.FC<ButtonProps> = ({
       <button
         className={clsx(
           "p-1 rounded-full transition hover:scale-110",
-          active ? "text-red-500" : "text-black dark:text-white",
+          active ? "text-red-500" : "text-black",
           className
         )}
         onClick={handleClick}

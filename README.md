@@ -2,7 +2,9 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+`npm install`
+
+This instals all necessary packages. Now, you can run the development server:
 
 ```bash
 npm run dev
@@ -16,21 +18,17 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+# One thing i found challenging:
 
-To learn more about Next.js, take a look at the following resources:
+Implementing theme toggle turned out to be quite challenging.
+Problem: The theme was changing on the root element. I could see this in the inspect element - when clicking the theme toggle, the style attribute was changing from `color-scheme: dark;` to `color-scheme: light;` and vice versa, however, the components (CardComponent, for example) was not changing style from bg-light to dark:bg-black.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# How I solved it: 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+After some time of trying to figure out the right way to implement `next-themes` functionality and debugging, I was unsuccesful, so I opted for an alternative solution. This solution relies on a custom hook - `useTheme` that utilizes `MutationObserver` observable that looks at the current value of the `class` property of the `document.documentElement` element. namely, I tell the observer to monitor only the class attribute of the targeted `HTML` element, and on update, it triggers a change in the state of the hook. We can then utilize this hook in our components and perform conditional class assignment on the elements we want to add themed classes to. However, I ran into trouble with discrepancy between the server side and client side attributes of the compoennts. This is direct side-effect of using conditional rendering (or in this case, class assignment) in the components rendered by the server. To resolve this, I added `mounted` variable in the return of the hook, and check if `mounted` is true, before rendering anything.
 
-## Deploy on Vercel
+# Things I would improve:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+I would invest more time into investigating the root cause of the theming issue, and try to resolve it in the correct way.
