@@ -18,7 +18,9 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+# Casino games:
 
+A casino games lobby for browsing and filtering games.
 
 # One thing i found challenging:
 

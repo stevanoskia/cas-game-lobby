@@ -20,24 +20,23 @@ const Filter = () => {
     <div className="flex flex-wrap gap-2 mt-4">
       <button
         onClick={() => setSelectedCategory(null)}
-        className={`px-4 py-1 rounded-full border ${
-          selectedCategory === null
+        className={`px-4 py-1 rounded-full border ${selectedCategory === null
             ? "bg-yellow-400 text-black"
-            : "light:bg-white dark:bg-zinc-500 text-black dark:text-white border-zinc-300 dark:border-zinc-600"
-        } hover:bg-yellow-300 transition`}
+            : "bg-zinc-800 text-white border-zinc-600"
+          } hover:bg-yellow-300 transition`}
       >
         All
       </button>
+
 
       {Object.values(GameCategory).map((cat) => (
         <button
           key={cat}
           onClick={() => setSelectedCategory(cat)}
-          className={`px-4 py-1 rounded-full border ${
-            selectedCategory === cat
+          className={`px-4 py-1 rounded-full border ${selectedCategory === cat
               ? "bg-yellow-400 text-black"
               : "bg-zinc-800 text-white border-zinc-600"
-          } hover:bg-yellow-300 transition`}
+            } hover:bg-yellow-300 transition`}
         >
           {cat.charAt(0).toUpperCase() + cat.slice(1)}
         </button>
@@ -46,11 +45,10 @@ const Filter = () => {
       {favorites.length > 0 && (
         <button
           onClick={toggleShowFavorites}
-          className={`px-4 py-1 rounded-full border ${
-            showFavoritesOnly
+          className={`px-4 py-1 rounded-full border ${showFavoritesOnly
               ? "bg-pink-500 text-white"
               : "bg-zinc-800 text-white border-zinc-600"
-          } hover:bg-pink-400 transition`}
+            } hover:bg-pink-400 transition`}
         >
           {showFavoritesOnly ? "Showing Favorites" : "Show Favorites"}
         </button>
